@@ -1,4 +1,6 @@
-class Task < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Task < ApplicationRecord
   acts_as_taggable
   belongs_to :board
   enum status: {
