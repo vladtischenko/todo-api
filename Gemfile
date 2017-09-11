@@ -47,9 +47,9 @@ gem 'trailblazer-rails'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 
-gem 'cancancan', '~> 2.0'
-
 gem 'rubocop', '~> 0.49.1', require: false
+
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -60,6 +60,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'ffaker'
   gem 'rspec-rails', '~> 3.5'
+  gem 'pry-byebug'
 end
 
 group :development do
@@ -75,6 +76,7 @@ group :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'airborne'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
