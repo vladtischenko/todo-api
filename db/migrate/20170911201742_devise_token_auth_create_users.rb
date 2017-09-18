@@ -41,6 +41,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.string :image
       t.string :email
       t.string :timezone
+      t.integer :boards_count
 
       ## Tokens
       t.json :tokens

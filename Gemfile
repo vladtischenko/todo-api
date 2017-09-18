@@ -44,6 +44,11 @@ gem 'apipie-rails'
 gem 'trailblazer'
 gem 'trailblazer-cells'
 gem 'trailblazer-rails'
+gem 'roar-jsonapi'
+
+gem 'jsonapi-parser'
+
+gem 'pundit'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 
