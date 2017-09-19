@@ -1,8 +1,7 @@
 class Api::V1::BoardsController < Api::V1::ApiController
   def index
-    # result = Board::Index.call(current_user: current_user)
-    # binding.pry
-    # render :ok
+    result = Board::Index.call(current_user: current_user)
+    render json: BoardRepresenter.for_collection.new(result['models']).as_json
   end
 
   def show
@@ -13,8 +12,7 @@ class Api::V1::BoardsController < Api::V1::ApiController
     if result.success?
       render json: BoardRepresenter.new(result['model']).as_json
     else
-      # result['contract.default'].errors
-      render json: result['contract.default'].errors.messages, status: :unprocessable_entity
+      render json: ErrorSerializer.serialize(result['contract.default'].errors), status: :unprocessable_entity
     end
   end
 

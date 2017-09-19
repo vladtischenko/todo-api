@@ -19,6 +19,11 @@ describe 'Boards management', type: :request do
         get '/api/v1/boards', headers: auth_headers
         expect_status(200)
         expect_json_sizes('data', 3)
+        boards.each_with_index do |board, index|
+          expect_json("data.#{index}.id", board.id.to_s)
+          expect_json("data.#{index}.type", 'boards')
+          expect_json("data.#{index}.attributes.name", board.name)
+        end
       end
     end
   end
@@ -70,7 +75,8 @@ describe 'Boards management', type: :request do
       it 'returns unprocessable_entity' do
         post '/api/v1/boards', params: invalid_params, headers: auth_headers
         expect_status(:unprocessable_entity)
-        expect_json('errors.0.detail', "Name can't be blank")
+        expect_json('errors.0.detail', 'Name is too short (minimum is 2 characters)')
+        expect_json('errors.1.detail', "Name can't be blank")
       end
     end
   end
