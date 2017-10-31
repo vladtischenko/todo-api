@@ -1,7 +1,9 @@
 class Api::V1::BoardsController < Api::V1::ApiController
+  include Concerns::ControllerSorting
+
   def index
     items = Board::Index.call({}, 'current_user' => current_user)['models']
-    # sort
+    items = sort_collection(items)
     # filter
     # include
     items = items.page(pagination_params[:number]).per(pagination_params[:size])
@@ -41,5 +43,15 @@ class Api::V1::BoardsController < Api::V1::ApiController
     else
       render json: ErrorSerializer.serialize(result['contract.default'].errors), status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def sort_list
+    %w[
+      name
+      created_at
+      updated_at
+    ]
   end
 end

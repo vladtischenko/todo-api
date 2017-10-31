@@ -11,6 +11,8 @@ class BoardRepresenter < Roar::Decorator
 
   attributes do
     property :name
+    property :created_at
+    property :updated_at
   end
 
   # resource object links

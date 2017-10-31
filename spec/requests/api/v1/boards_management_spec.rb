@@ -63,29 +63,71 @@ describe 'Boards management', type: :request do
             get '/api/v1/boards?sort=name', headers: auth_headers
             expect_status(200)
             expect_json_sizes('data', 3)
-            expect_json('data.0.id', board_2.id)
-            expect_json('data.1.id', board_3.id)
-            expect_json('data.2.id', board_1.id)
+            expect_json('data.0.id', board_2.id.to_s)
+            expect_json('data.1.id', board_3.id.to_s)
+            expect_json('data.2.id', board_1.id.to_s)
           end
 
           it 'desc' do
             get '/api/v1/boards?sort=-name', headers: auth_headers
             expect_status(200)
             expect_json_sizes('data', 3)
-            expect_json('data.0.id', board_1.id)
-            expect_json('data.1.id', board_3.id)
-            expect_json('data.2.id', board_2.id)
+            expect_json('data.0.id', board_1.id.to_s)
+            expect_json('data.1.id', board_3.id.to_s)
+            expect_json('data.2.id', board_2.id.to_s)
           end
         end
 
         describe 'created_at' do
-          it 'asc'
-          it 'desc'
+          before do
+            board_1.update(created_at: Date.today)
+            board_2.update(created_at: 1.week.ago)
+            board_3.update(created_at: 1.day.ago)
+          end
+
+          it 'asc' do
+            get '/api/v1/boards?sort=created_at', headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 3)
+            expect_json('data.0.id', board_2.id.to_s)
+            expect_json('data.1.id', board_3.id.to_s)
+            expect_json('data.2.id', board_1.id.to_s)
+          end
+
+          it 'desc' do
+            get '/api/v1/boards?sort=-created_at', headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 3)
+            expect_json('data.0.id', board_1.id.to_s)
+            expect_json('data.1.id', board_3.id.to_s)
+            expect_json('data.2.id', board_2.id.to_s)
+          end
         end
 
         describe 'updated_at' do
-          it 'asc'
-          it 'desc'
+          before do
+            board_1.update(updated_at: Date.today)
+            board_2.update(updated_at: 1.week.ago)
+            board_3.update(updated_at: 1.day.ago)
+          end
+
+          it 'asc' do
+            get '/api/v1/boards?sort=updated_at', headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 3)
+            expect_json('data.0.id', board_2.id.to_s)
+            expect_json('data.1.id', board_3.id.to_s)
+            expect_json('data.2.id', board_1.id.to_s)
+          end
+
+          it 'desc' do
+            get '/api/v1/boards?sort=-updated_at', headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 3)
+            expect_json('data.0.id', board_1.id.to_s)
+            expect_json('data.1.id', board_3.id.to_s)
+            expect_json('data.2.id', board_2.id.to_s)
+          end
         end
       end
 
