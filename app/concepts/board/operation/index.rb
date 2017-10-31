@@ -1,7 +1,7 @@
 class Board::Index < Trailblazer::Operation
   step :process!
 
-  def process!(options, params:)
-    options['models'] = params[:current_user].boards
+  def process!(options)
+    options['models'] = options['current_user'].boards
   end
 end

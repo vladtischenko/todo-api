@@ -1,5 +1,5 @@
 module ErrorSerializer
-  def ErrorSerializer.serialize(errors)
+  def self.serialize(errors)
     return if errors.nil?
     json = {}
     new_hash = errors.to_hash(true).map do |k, v|

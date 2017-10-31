@@ -41,10 +41,10 @@ gem 'omniauth'
 
 gem 'apipie-rails'
 
+gem 'roar-jsonapi'
 gem 'trailblazer'
 gem 'trailblazer-cells'
 gem 'trailblazer-rails'
-gem 'roar-jsonapi'
 
 gem 'jsonapi-parser'
 
@@ -54,7 +54,9 @@ gem 'acts-as-taggable-on', '~> 4.0'
 
 gem 'rubocop', '~> 0.49.1', require: false
 
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
+
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,8 +66,8 @@ group :development, :test do
   # gem 'selenium-webdriver'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'ffaker'
-  gem 'rspec-rails', '~> 3.5'
   gem 'pry-byebug'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
@@ -78,10 +80,10 @@ group :development do
 end
 
 group :test do
+  gem 'airborne'
   gem 'database_cleaner'
   gem 'faker'
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'airborne'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
