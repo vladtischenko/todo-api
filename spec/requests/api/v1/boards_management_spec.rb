@@ -132,11 +132,82 @@ describe 'Boards management', type: :request do
       end
 
       describe 'filter' do
-        describe 'name'
-        describe 'created_from_date'
-        describe 'created_to_date'
-        describe 'updated_from_date'
-        describe 'updated_to_date'
+        let(:board) { boards.sample }
+
+        describe 'name' do
+          let(:name) { 'test_name' }
+
+          before do
+            board.update(name: name)
+          end
+
+          it do
+            get "/api/v1/boards?filter[name]=#{name[1, 5]}", headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 1)
+            expect_json('data.0.id', board.id.to_s)
+          end
+        end
+
+        describe 'created_from_date' do
+          let(:date) { 1.week.from_now }
+
+          before do
+            board.update(created_at: date)
+          end
+
+          it do
+            get "/api/v1/boards?filter[created_from_date]=#{date.to_date}", headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 1)
+            expect_json('data.0.id', board.id.to_s)
+          end
+        end
+
+        describe 'created_to_date' do
+          let(:date) { 1.week.ago }
+
+          before do
+            board.update(created_at: date)
+          end
+
+          it do
+            get "/api/v1/boards?filter[created_to_date]=#{date.to_date}", headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 1)
+            expect_json('data.0.id', board.id.to_s)
+          end
+        end
+
+        describe 'updated_from_date' do
+          let(:date) { 1.week.from_now }
+
+          before do
+            board.update(updated_at: date)
+          end
+
+          it do
+            get "/api/v1/boards?filter[updated_from_date]=#{date.to_date}", headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 1)
+            expect_json('data.0.id', board.id.to_s)
+          end
+        end
+
+        describe 'updated_to_date' do
+          let(:date) { 1.week.ago }
+
+          before do
+            board.update(updated_at: date)
+          end
+
+          it do
+            get "/api/v1/boards?filter[updated_to_date]=#{date.to_date}", headers: auth_headers
+            expect_status(200)
+            expect_json_sizes('data', 1)
+            expect_json('data.0.id', board.id.to_s)
+          end
+        end
       end
 
       describe 'include' do
